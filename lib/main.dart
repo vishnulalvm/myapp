@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:myapp/auth/splash_screen.dart';
 
-void main(){
+
+void main() {
   runApp(const MyApp());
-
 }
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -14,17 +16,11 @@ class MyApp extends StatelessWidget {
       title: 'Netflix',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
         splashColor: Colors.transparent,
         highlightColor: Colors.transparent,
-    
-
+        useMaterial3: true,
       ),
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Netflix'),
-                )
-      ),
+      home: const SplashScreen(),
     );
   }
 }
