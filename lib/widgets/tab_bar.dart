@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
 
-// ignore: must_be_immutable
 class HomeTabBar extends StatefulWidget {
-  HomeTabBar({
+  final String? first;
+  final String? second;
+  final String? third;
+  const HomeTabBar({
     super.key,
     this.first,
     this.second,
     this.third,
   });
-  String? first;
-  String? second;
-
-  String? third;
 
   @override
   State<HomeTabBar> createState() => _HomeTabBarState();

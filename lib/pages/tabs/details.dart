@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:myapp/services/functions/api_functions.dart';
@@ -53,7 +51,7 @@ class _DetailsPageState extends State<DetailsPage> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+              padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
               child: Text(
                 widget.title,
                 style: GoogleFonts.roboto(
@@ -87,9 +85,9 @@ class _DetailsPageState extends State<DetailsPage> {
                   "2h 25m",
                   style: TextStyle(color: Colors.white),
                 ),
-                Icon(
+                const Icon(
                   Icons.hd,
-                  color: const Color.fromARGB(255, 255, 255, 255),
+                  color: Color.fromARGB(255, 255, 255, 255),
                 )
               ],
             ),
@@ -175,7 +173,7 @@ class _DetailsPageState extends State<DetailsPage> {
             CustomSlider(
                 title: "Related Movies", sliderlist: popularMoviesList),
             CustomSlider(title: "Trending Now", sliderlist: topRatedList),
-            SizedBox(
+            const SizedBox(
               height: 10,
             )
           ],

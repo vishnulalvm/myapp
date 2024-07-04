@@ -40,7 +40,7 @@ class _NewsHotScreenState extends State<NewsHotScreen> {
                   valueListenable: tabNotifier,
                   builder: (context, isTabBarVisible, _) {
                     return isTabBarVisible
-                        ? HomeTabBar(
+                        ? const HomeTabBar(
                             first: 'Comming Soon🍿',
                             second: 'Most Watching🔥',
                           )

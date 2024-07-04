@@ -1,10 +1,9 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
 import 'package:myapp/pages/tabs/games.dart';
 import 'package:myapp/pages/tabs/home.dart';
 import 'package:myapp/pages/tabs/news_hot.dart';
 import 'package:myapp/pages/tabs/proflie.dart';
+import 'package:myapp/utils/colors.dart';
 
 
 class MyBottom extends StatefulWidget {
@@ -30,7 +29,6 @@ class _MyBottomState extends State<MyBottom> {
         type: BottomNavigationBarType.fixed,
 
         backgroundColor: Colors.black,
-        //enableFeedback: false,
         items: const [
           //item:1
           BottomNavigationBarItem(
@@ -56,8 +54,8 @@ class _MyBottomState extends State<MyBottom> {
         showSelectedLabels: true,
         iconSize: 30,
         showUnselectedLabels: true,
-        selectedItemColor: Color.fromARGB(255, 255, 255, 255),
-        unselectedItemColor: Color.fromARGB(255, 161, 151, 151),
+        selectedItemColor: selectedItemColor,
+        unselectedItemColor: unselectedItemColor,
         onTap: (int index) {
           setState(() {
             indexNum = index;

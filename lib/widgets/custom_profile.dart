@@ -27,7 +27,7 @@ class _CustomProfileState extends State<CustomProfile> {
             clipBehavior: Clip.antiAlias,
             decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
             child: Image.network(
-              'https://upload.wikimedia.org/wikipedia/commons/0/0b/Netflix-avatar.png',
+              'https://wallpapers.com/images/hd/netflix-profile-pictures-5yup5hd2i60x7ew3.jpg',
               fit: BoxFit.cover,
               height: 86,
             ),
@@ -37,7 +37,7 @@ class _CustomProfileState extends State<CustomProfile> {
           height: 5,
         ),
         Text(
-          'Akhil',
+          'Vishnulal V M',
           style: TextStyle(color: Colors.white, fontSize: 15),
         ),
         Padding(
@@ -54,7 +54,7 @@ class _CustomProfileState extends State<CustomProfile> {
                   'https://img.freepik.com/premium-vector/bell-button-icon-notification-bell-red-circle-template-bell-web-symbol-app-ui-logo-vector_799714-64.jpg'),
             ),
             title: Text(
-              'Notification',
+              'Notifications',
               style: TextStyle(color: Colors.white, fontSize: 16),
             ),
           ),
@@ -73,7 +73,7 @@ class _CustomProfileState extends State<CustomProfile> {
                 'https://is2-ssl.mzstatic.com/image/thumb/Purple116/v4/16/0c/93/160c939c-4427-985e-e7fd-e4a215b00216/source/512x512bb.jpg'),
           ),
           title: Text(
-            'Notification',
+            'Downloads',
             style: TextStyle(color: Colors.white, fontSize: 16),
           ),
         ),

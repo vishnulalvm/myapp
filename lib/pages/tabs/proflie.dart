@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:myapp/widgets/custom_profile.dart';
 
@@ -15,18 +15,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.white),
+        iconTheme: const IconThemeData(color: Colors.white),
         actions: [
           IconButton(onPressed: () {}, icon: const Icon(Icons.search)),
-          IconButton(onPressed: () {}, icon: Icon(Icons.menu))
+          IconButton(onPressed: () {}, icon: const Icon(Icons.menu))
         ],
         backgroundColor: Colors.transparent,
-        title: Text(
+        title: const Text(
           'My Netflix',
-          style: const TextStyle(color: Colors.white),
+          style: TextStyle(color: Colors.white),
         ),
       ),
-      body: SingleChildScrollView(
+      body: const SingleChildScrollView(
         child: CustomProfile(),
       ),
     );

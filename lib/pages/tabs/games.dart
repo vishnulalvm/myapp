@@ -1,4 +1,3 @@
-// ignore_for_file: prefer_const_constructors
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:myapp/services/functions/api_functions.dart';
@@ -38,7 +37,7 @@ class _GamesScreenState extends State<GamesScreen> {
       ),
       body: Column(
         children: [
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           TextFormField(
@@ -47,7 +46,7 @@ class _GamesScreenState extends State<GamesScreen> {
             style: const TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
             decoration: InputDecoration(
               suffixIcon: searchController.text.isEmpty
-                  ? Icon(
+                  ? const Icon(
                       Icons.mic,
                       color: Colors.white,
                     )
@@ -55,20 +54,20 @@ class _GamesScreenState extends State<GamesScreen> {
                       onPressed: () {
                         searchController.clear();
                       },
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.clear,
                         color: Colors.white,
                       )),
-              prefixIcon: Icon(
+              prefixIcon: const Icon(
                 Icons.search,
                 color: Colors.white,
               ),
               fillColor: const Color.fromARGB(255, 141, 136, 136),
               filled: true,
-              border: OutlineInputBorder(
-                borderSide: const BorderSide(color: Colors.white),
+              border: const OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.white),
               ),
-              hintStyle: TextStyle(color: Colors.white),
+              hintStyle: const TextStyle(color: Colors.white),
               hintText: 'Search movies, show, tv...',
             ),
           ),
@@ -84,7 +83,7 @@ class _GamesScreenState extends State<GamesScreen> {
   onSearch() {
     setState(() {});
     if (_debounce?.isActive ?? false) _debounce?.cancel();
-    _debounce = Timer(Duration(milliseconds: 500), () {
+    _debounce = Timer(const Duration(milliseconds: 500), () {
       if (searchText != searchController.text) {
         setState(() {
           _fullMovies = allMoviesList
