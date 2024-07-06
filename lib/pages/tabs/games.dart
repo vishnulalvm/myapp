@@ -1,17 +1,21 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'dart:async';
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:myapp/services/functions/api_functions.dart';
-import 'package:myapp/widgets/game_listview.dart';
+import 'package:myapp/services/functions/api_keys.dart';
+import 'package:myapp/widgets/customlist.dart';
 
-
-class GamesScreen extends StatefulWidget {
-  const GamesScreen({super.key});
+class GameScreen extends StatefulWidget {
+  const GameScreen({super.key});
 
   @override
-  State<GamesScreen> createState() => _GamesScreenState();
+  State<GameScreen> createState() => _GameScreenState();
 }
 
-class _GamesScreenState extends State<GamesScreen> {
+class _GameScreenState extends State<GameScreen> {
   List _fullMovies = [];
   Timer? _debounce;
   String searchText = '';
@@ -19,90 +23,103 @@ class _GamesScreenState extends State<GamesScreen> {
 
   @override
   void initState() {
-    _fullMovies = allMoviesList;
-    searchController.addListener(onSearch);
     super.initState();
+    _fullMovies = topRatedList;
+    searchController.addListener(_onSearchChanged);
+  }
+
+  @override
+  void dispose() {
+    searchController.removeListener(_onSearchChanged);
+    searchController.dispose();
+    _debounce?.cancel();
+    super.dispose();
+  }
+
+  void _onSearchChanged() {
+    if (_debounce?.isActive ?? false) _debounce?.cancel();
+    _debounce = Timer(Duration(milliseconds: 500), () {
+      if (searchText != searchController.text) {
+        setState(() {
+          searchText = searchController.text;
+        });
+        _searchMovies();
+      }
+    });
+  }
+
+  Future<void> _searchMovies() async {
+    if (searchText.isEmpty) return;
+
+    String searchurl =
+        "https://api.themoviedb.org/3/search/movie?query=${searchController.text}&api_key=$apikey";
+    final response = await http.get(Uri.parse(searchurl));
+
+    if (response.statusCode == 200) {
+      var tempdata = jsonDecode(response.body);
+      List toprated = tempdata['results'];
+      setState(() {
+        _fullMovies = toprated
+            .map((movie) => {
+                  'title': movie['title'],
+                  'backdrop_path': movie['backdrop_path'],
+                  'overview': movie['overview'],
+                  'vote_average': movie['vote_average'],
+                  'release_date': movie['release_date'],
+                  'poster_path': movie['poster_path'],
+                })
+            .toList();
+      });
+    } else {
+      throw Exception('Error loading top rated movies');
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 0, 0, 0),
+      backgroundColor: Colors.black,
       appBar: AppBar(
         backgroundColor: Colors.black,
-        title: const Text(
-          'Search Movies',
+        title: Text(
+          'Search for Movies',
           style: TextStyle(color: Colors.white),
         ),
       ),
       body: Column(
         children: [
-          const SizedBox(
-            height: 10,
-          ),
+          SizedBox(height: 10),
           TextFormField(
-            onChanged: onSearch(),
+            onChanged: (text) => _onSearchChanged(),
             controller: searchController,
-            style: const TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
+            style: TextStyle(color: Colors.white),
             decoration: InputDecoration(
               suffixIcon: searchController.text.isEmpty
-                  ? const Icon(
-                      Icons.mic,
-                      color: Colors.white,
-                    )
+                  ? Icon(Icons.mic, color: Colors.white)
                   : IconButton(
                       onPressed: () {
                         searchController.clear();
                       },
-                      icon: const Icon(
-                        Icons.clear,
-                        color: Colors.white,
-                      )),
-              prefixIcon: const Icon(
-                Icons.search,
-                color: Colors.white,
-              ),
-              fillColor: const Color.fromARGB(255, 141, 136, 136),
+                      icon: Icon(Icons.clear, color: Colors.white),
+                    ),
+              prefixIcon: Icon(Icons.search, color: Colors.white),
+              fillColor: Color.fromARGB(255, 141, 136, 136),
               filled: true,
-              border: const OutlineInputBorder(
+              border: OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.white),
               ),
-              hintStyle: const TextStyle(color: Colors.white),
-              hintText: 'Search movies, show, tv...',
+              hintStyle: TextStyle(color: Colors.white),
+              hintText: 'Search Movies',
             ),
           ),
           Expanded(
-            child:
-                Curstom_list(searchText: searchText, fullMovies: _fullMovies),
-          )
+            child: CustomList(
+              searchText: searchText,
+              fullMovies: _fullMovies,
+            ),
+          ),
         ],
       ),
     );
-  }
-
-  onSearch() {
-    setState(() {});
-    if (_debounce?.isActive ?? false) _debounce?.cancel();
-    _debounce = Timer(const Duration(milliseconds: 500), () {
-      if (searchText != searchController.text) {
-        setState(() {
-          _fullMovies = allMoviesList
-              .where((element) => element
-                  .toString()
-                  .toLowerCase()
-                  .contains(searchController.text.toString().toLowerCase()))
-              .toList();
-        });
-      }
-      searchText = searchController.text;
-    });
-  }
-
-  @override
-  void dispose() {
-    searchController.removeListener(onSearch);
-    searchController.dispose();
-    _debounce?.cancel();
-    super.dispose();
   }
 }

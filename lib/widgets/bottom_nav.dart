@@ -17,7 +17,7 @@ class _MyBottomState extends State<MyBottom> {
   int indexNum = 0;
   List screen = [
     const HomeScreen(),
-    const GamesScreen(),
+    const GameScreen(),
     const NewsHotScreen(),
     const ProfileScreen()
   ];

@@ -20,17 +20,9 @@ class _HomeTabBarState extends State<HomeTabBar> {
   Widget build(BuildContext context) {
     return TabBar(
       tabs: [
-        Tab(
-          text: '${widget.first}',
-        ),
-        Tab(
-          text: '${widget.second}',
-        ),
-        (widget.third != null)
-            ? Tab(
-                text: '${widget.third}',
-              )
-            : const SizedBox()
+        if (widget.first != null) Tab(text: widget.first),
+        if (widget.second != null) Tab(text: widget.second),
+        if (widget.third != null) Tab(text: widget.third),
       ],
       labelPadding: const EdgeInsets.symmetric(horizontal: 16.0),
       dividerColor: Colors.black,
